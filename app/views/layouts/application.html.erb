@@ -11,6 +11,18 @@
   </head>
 
   <body>
-    <%= yield %>
+
+    <header>
+      <%= image_tag("logo.png") %>
+    </header>
+
+    <div class="content">
+      <%= yield %>
+    </div>
+
+    <footer>
+      <p>Made in <a href="#">The Pragmatic Studio</a> course</p>
+    </footer>
+
   </body>
 </html>
