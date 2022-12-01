@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
   def index
-    @events = %w[BugSmash Hackathon Campk].shuffle
+    @events = Event.all
   end
 end
