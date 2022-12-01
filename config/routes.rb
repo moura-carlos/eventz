@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   #get to: 'events#index'
   get 'events' => 'events#index'
+  get 'events/:id' => 'events#show'
 end
