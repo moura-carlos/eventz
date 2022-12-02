@@ -12,22 +12,13 @@
 
   <body>
 
-    <header>
-      <nav>
-        <%= link_to image_tag("logo.png"), root_path %>
-        <ul>
-          <%= link_to "All Events", events_path %>
-        </ul>
-      </nav>
-    </header>
+    <%= render "layouts/header" %>
 
     <div class="content">
       <%= yield %>
     </div>
 
-    <footer>
-      <p>Made in <a href="#">The Pragmatic Studio</a> course</p>
-    </footer>
+    <%= render "layouts/footer" %>
 
   </body>
 </html>

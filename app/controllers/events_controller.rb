@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.all
+    # using Model Method - upcoming - that queries database for the upcoming events.
+    @events = Event.upcoming
   end
 
   def show
@@ -18,6 +19,29 @@ class EventsController < ApplicationController
       redirect_to @event
     else
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def new
+    @event = Event.new
+  end
+
+  def create
+    # @event = Event.create(event_params) => creates new event and saves to database.
+    @event = Event.new(event_params)
+    if @event.save
+      redirect_to @event
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @event = Event.find(params[:id])
+    if @event.destroy
+      redirect_to events_url, status: :see_other
+    else
+      render :show, status: :unprocessable_entity
     end
   end
 
