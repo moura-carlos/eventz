@@ -1,4 +1,16 @@
 class Event < ApplicationRecord
+  validates :name, :location, presence: true
+  validates :description, length: { minimum: 25 } # this will check for both presence and size at same time
+  # validates that price is a number (int, float...) and is >= 0
+  validates :price, numericality: { greater_than_or_equal_to: 0 }
+  validates :capacity, numericality:
+                      { only_integer: true,
+                        greater_than: 0 }
+  # validates the image file name and extension using regular expression
+  validates :image_file_name, format: {
+    with: /\w+\.(jpg|png)\z/i,
+    message: 'must be a JPG or PNG image'
+  }
   def self.upcoming
     # displaying only the upcoming events
     # select all events which date is later than Time.now and
