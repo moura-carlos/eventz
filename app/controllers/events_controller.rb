@@ -15,8 +15,9 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     if @event.update(event_params)
+      # flash[:notice] = 'Event successfully updated!' => same as second part line 20
       # redirect_to @event = redict_to event_path(@event)
-      redirect_to @event
+      redirect_to @event, notice: 'Event successfully updated!'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -30,7 +31,7 @@ class EventsController < ApplicationController
     # @event = Event.create(event_params) => creates new event and saves to database.
     @event = Event.new(event_params)
     if @event.save
-      redirect_to @event
+      redirect_to @event, notice: 'Event successfully created!'
     else
       render :new, status: :unprocessable_entity
     end
