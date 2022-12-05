@@ -9,6 +9,7 @@ module RegistrationsHelper
       # generate some HTML here in the helper.
       # since view helper methods are just straight up Ruby code (.rb) file extension
       # we need to use the built-in helper named 'content_tag'
+      # this returns an HTML save string with the content - 'Sold Out!' - surrounded by the tag - span.
       content_tag(:span, 'Sold Out!', class: 'sold-out')
     else
       # return a registration link
