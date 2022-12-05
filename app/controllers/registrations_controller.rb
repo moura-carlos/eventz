@@ -19,6 +19,9 @@ class RegistrationsController < ApplicationController
     # @event = Event.find(params[:event_id])
     @registration = @event.registrations.new(registration_params)
     if @registration.save
+      # removes one spot out of capacity from the event, since a new person has registered
+      @event.capacity = @event.capacity - 1
+      @event.save
       redirect_to event_registrations_url(@event), notice: 'Thanks for registering!'
     else
       render :new, status: :unprocessable_entity

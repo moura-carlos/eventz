@@ -26,4 +26,9 @@ class Event < ApplicationRecord
     # same as => self.price == 0
     price.blank? || price.zero? # checked wether price attribute is has not been set or is 0
   end
+
+  def sold_out?
+    # (self.capacity - self.registrations.size).zero?
+    (capacity - registrations.size).zero?
+  end
 end
