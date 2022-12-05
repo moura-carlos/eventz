@@ -120,3 +120,13 @@
 #     event_id: event_id
 #   )
 # end
+# ["id", "name", "email", "password_digest", "created_at", "updated_at"]
+# 10.times do
+#   name = Faker::Name.first_name
+#   email = "#{name.downcase!}@example.com"
+#   User.create!(
+#     name: name,
+#     email: email,
+#     password: 'password'
+#   )
+# end

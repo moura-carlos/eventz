@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :users
   # resources :registrations
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -27,4 +26,7 @@ Rails.application.routes.draw do
 
 
   # get 'events/:id/registrations' => 'registrations#index', as: 'event_registrations'
+  resources :users
+
+  get "signup" => "users#new"
 end
