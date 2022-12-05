@@ -28,5 +28,9 @@ Rails.application.routes.draw do
   # get 'events/:id/registrations' => 'registrations#index', as: 'event_registrations'
   resources :users
 
+  # because each user will only have one session,
+  # we'll use the singular form of the resource.
+  resource :session, only: [:new, :create, :destroy]
+
   get "signup" => "users#new"
 end
