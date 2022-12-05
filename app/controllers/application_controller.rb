@@ -19,7 +19,22 @@ class ApplicationController < ActionController::Base
 
   def require_signin
     unless current_user
+      # request.original_url => "http://127.0.0.1:3000/users"
+      # request.fullpath => "/users"
+      session[:intended_url] = request.url
       redirect_to new_session_url, alert: "Please sign in first!"
     end
   end
+
+  # The method bellow checks wether the currently signed in user
+  # is also the user being shown in the show page.
+  # in other words, it checks wether the current user is allowed
+  # to see the links to edit or delete that given user.
+  # The current_user can only do that if they are looking at their own profile.
+  # They cannot edit or delete other's profiles.
+  def current_user?(user)
+    current_user == user
+  end
+
+  helper_method :current_user?
 end

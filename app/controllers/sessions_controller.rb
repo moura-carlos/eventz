@@ -9,7 +9,14 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       # put user id in session
       session[:user_id] = user.id
-      redirect_to user, notice: "Welcome back, #{user.name}!"
+
+      # redirect_to user, notice: "Welcome back, #{user.name}!"
+      # redirect to the :intended_url and if there is not one redirect to the user's show page.
+      # the redirect_to here just sets up the redirect.
+      # So the line after it will still run.
+      # And then when the action falls through, the redirect will actually happen.
+      redirect_to (session[:intended_url] || user), notice: "Welcome back, #{user.name}!"
+      session[:intended_url] = nil
     else
       # In case of invalid email or password,
       # the flash message needs to be shown right away.
