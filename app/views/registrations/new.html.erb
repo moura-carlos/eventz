@@ -2,11 +2,11 @@
 <%# since this is a nested resource, in the array of resources, pass the parent resource first and then the child %>
 <%= form_with(model: [@event, @registration]) do |f| %>
   <%= render "shared/errors", object: @registration %>
-  <%= f.label :name %>
-  <%= f.text_field :name, autofocus: true %>
+  <%#= f.label :name %>
+  <%#= f.text_field :name, autofocus: true %>
 
-  <%= f.label :email %>
-  <%= f.email_field :email %>
+  <%#= f.label :email %>
+  <%#= f.email_field :email %>
 
   <%= f.label :how_heard, "How did you hear about this event?" %>
   <%= f.select :how_heard, Registration::HOW_HEARD_OPTIONS, prompt: "Pick one"%>

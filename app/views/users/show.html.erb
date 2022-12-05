@@ -7,4 +7,23 @@
         <%= link_to "Delete Account", @user, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "button delete"  %>
     </div>
   <% end %>
+    <%# The line bellow also works, but its better to get @registrations from show action in Users controller %>
+    <%# @user.registrations.all.each do |registration| %>
+  <% if @registrations.present? %>
+    <h3>Registrations</h3>
+    <% @registrations.each do |registration| %>
+      <div class="registration">
+        <div class="image">
+          <%= link_to image_tag(registration.event.image_file_name), registration.event %>
+        </div>
+        <div class="name">
+          <%= link_to registration.event.name, registration.event %>
+        </div>
+        <div class="date">
+          <%= time_ago_in_words(registration.created_at) %> ago
+        </div>
+      </div>
+        <%#= registration.event.name %>
+    <% end %>
+  <% end %>
 </section>

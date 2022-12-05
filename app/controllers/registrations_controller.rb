@@ -1,5 +1,7 @@
 class RegistrationsController < ApplicationController
+  before_action :require_signin #, only: [:new, :create]
   before_action :set_event, only: [:index, :new, :create]
+
   def index
     # @event = Event.find(params[:event_id])
     @registrations = @event.registrations
@@ -18,6 +20,7 @@ class RegistrationsController < ApplicationController
     # in this case the previously ran action was 'new'
     # @event = Event.find(params[:event_id])
     @registration = @event.registrations.new(registration_params)
+    @registration.user = current_user
     if @registration.save
       # removes one spot out of capacity from the event, since a new person has registered
       @event.capacity = @event.capacity - 1
@@ -30,7 +33,8 @@ class RegistrationsController < ApplicationController
 
   private
   def registration_params
-    params.require(:registration).permit(:name, :email, :how_heard)
+    # params.require(:registration).permit(:name, :email, :how_heard)
+    params.require(:registration).permit(:how_heard)
   end
 
   # This method makes the @event instance variable available to the actions index, new, and create.
