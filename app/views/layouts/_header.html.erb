@@ -7,9 +7,31 @@
       </li>
     </ul>
     <ul class="right">
-      <li>
-        <%= link_to "Sign Up", signup_path, class: "button" %>
-      </li>
+      <% if current_user %>
+        <li>
+        <%# we need to figure out where to
+        define 'current_user' method.
+        we're calling it from a View,
+        so it needs to be a View Helper Method.
+        View Helper Methods live in a helper module
+        we could put it inside of session_helper's module.
+        Bu since we might use the 'current_user' helper method all over the application, so
+        we'll put it in the global Application Helper (application helper.rb).
+        %>
+          <%= link_to current_user.name, current_user %>
+        </li>
+        <li>
+          <%= link_to "Sign Out", session_path, data: { turbo_method: :delete },
+          class: "button" %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to "Sign In", new_session_path, class: "button" %>
+        </li>
+        <li>
+          <%= link_to "Sign Up", signup_path, class: "button" %>
+        </li>
+      <% end %>
     </ul>
   </nav>
 </header>
