@@ -20,10 +20,11 @@
     </div>
   </div>
 </section>
-
-<section class="admin">
-  <%= link_to "Edit", edit_event_path(@event), class: "button" %>
-</section>
-<section class="admin">
-  <%= link_to "Delete", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "button" %>
-</section>
+<% if current_user_admin? %>
+  <section class="admin">
+    <%= link_to "Edit", edit_event_path(@event), class: "button" %>
+  </section>
+  <section class="admin">
+    <%= link_to "Delete", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "button" %>
+  </section>
+<% end %>
