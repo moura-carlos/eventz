@@ -1,4 +1,7 @@
 class EventsController < ApplicationController
+  before_action :require_signin, except: [:index, :show]
+  before_action :require_admin, except: [:index, :show]
+
   def index
     # using Model Method - upcoming - that queries database for the upcoming events.
     @events = Event.upcoming
