@@ -26,4 +26,7 @@ Rails.application.routes.draw do
 
 
   # get 'events/:id/registrations' => 'registrations#index', as: 'event_registrations'
+  resources :users
+
+  get "signup" => "users#new"
 end
