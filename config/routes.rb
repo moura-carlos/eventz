@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # resources :registrations
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -13,5 +14,16 @@ Rails.application.routes.draw do
   # get 'events/:id/edit' => 'events#edit', as: 'edit_event'
   # patch 'events/:id' => 'events#update' #, as: 'update_event'
 
-  resources :events
+  # here we set up a hierarchy that mimics the hierarchy that we see in the URL.
+  # URL => http://some_address_here/events/event_id/registrations
+  # registrations only make sense in the context of an event
+  resources :events do
+    resources :registrations
+  end
+
+  # events/10/registrations is equivalent to the bellow.
+  # get 'events/:id/registrations' => 'registrations#index'
+
+
+  # get 'events/:id/registrations' => 'registrations#index', as: 'event_registrations'
 end
