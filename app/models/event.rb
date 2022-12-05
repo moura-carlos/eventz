@@ -1,4 +1,7 @@
 class Event < ApplicationRecord
+  # when an Event is destroyed, all its associated registrations are also destroyed.
+  has_many :registrations, dependent: :destroy
+
   validates :name, :location, presence: true
   validates :description, length: { minimum: 25 } # this will check for both presence and size at same time
   # validates that price is a number (int, float...) and is >= 0

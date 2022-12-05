@@ -1,0 +1,27 @@
+<h1>Registration for <%= link_to @event.name, @event %></h1>
+<%# since this is a nested resource, in the array of resources, pass the parent resource first and then the child %>
+<%= form_with(model: [@event, @registration]) do |f| %>
+  <%= render "shared/errors", object: @registration %>
+  <%= f.label :name %>
+  <%= f.text_field :name, autofocus: true %>
+
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.label :how_heard, "How did you hear about this event?" %>
+  <%= f.select :how_heard, Registration::HOW_HEARD_OPTIONS, prompt: "Pick one"%>
+  <%= f.submit "Register for event" %>
+<% end %>
+
+<!--The form bellow also works-->
+<!--<%= form_with(model: @registration, url: event_registrations_path(@registration.event), method: :post) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.label :how_heard, "How did you hear about this event?" %>
+  <%= select(:registration, :how_heard, Registration::HOW_HEARD_OPTIONS, { include_blank: false })%>
+  <%= f.submit "Register for event" %>
+<% end %>-->

@@ -20,6 +20,7 @@ gem "importmap-rails"
 
 # Custom gems
 gem 'bootstrap', '~> 5.2', '>= 5.2.3'
+gem 'faker'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
