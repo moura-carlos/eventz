@@ -1,9 +1,20 @@
 <section class="event-details">
   <div class="image">
     <%= image_tag @event.image_file_name %>
+    <% if current_user %>
+      <div class="likes">
+        <%= like_or_unlike_button(@event, @like) %>
+        <div class="count">
+          <%= @likers.size %>
+        </div>
+      </div>
+    <% end %>
   </div>
   <div class="details">
     <h1><%= @event.name %></h1>
+    <%# The following link bellow works, for example, when we haven't nested the resources like and events %>
+    <%#= link_to "Like", likes_path(event_id: @event), data: { turbo_method: :post }, class: "button" %>
+    <h3><%#= @event.likers.count %></h3>
     <h2>
       <%= pluralize(@event.capacity, "spot") %>
       &bull;
@@ -19,6 +30,17 @@
       </p>
     </div>
   </div>
+  <aside>
+    <% if @likers.present? %>
+      <h4>Liked By</h4>
+      <ul>
+        <% @likers.each do |user| %>
+          <li><%= link_to user.name, user %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </aside>
+
 </section>
 <% if current_user_admin? %>
   <section class="admin">

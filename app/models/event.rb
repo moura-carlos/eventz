@@ -1,6 +1,16 @@
 class Event < ApplicationRecord
   # when an Event is destroyed, all its associated registrations are also destroyed.
   has_many :registrations, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  # We could know the users who like an event by using "event.users",
+  # which is a command provided by the code "has_many :users, through: :likes"
+  # however, that is not very descriptive.
+  # In order to change that to say "event.likers" we can change
+  # that line of code to the following one in order to tell Rails
+  # that when we say "likers" we really mean "users"
+  # has_many :users, through: :likes
+  has_many :likers, through: :likes, source: :user
+
 
   validates :name, :location, presence: true
   validates :description, length: { minimum: 25 } # this will check for both presence and size at same time

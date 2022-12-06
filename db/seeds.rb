@@ -130,3 +130,19 @@
 #     password: 'password'
 #   )
 # end
+# 10.times do
+#   Event.create!(
+#     name: Faker::Address.community,
+#     location: Faker::Address.state,
+#     price: rand(500),
+#     starts_at: Faker::Date.between(from: '2022-12-20', to: '2023-12-30'),
+#     description: "#{Faker::Quote.famous_last_words} \n #{Faker::TvShows::GameOfThrones.quote}",
+#     capacity: rand(50)
+#   )
+# end
+# 10.times do
+#   user_id = User.all.sample(1)[0].id
+#   event_id = Event.all.sample(1)[0].id
+#   like = Like.create!(user_id: User.all.sample(1)[0].id, event_id: Event.all.sample(1)[0].id)
+#   like.save
+# end

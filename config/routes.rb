@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # resources :likes
   # resources :registrations
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   # registrations only make sense in the context of an event
   resources :events do
     resources :registrations
+    resources :likes
   end
 
   # events/10/registrations is equivalent to the bellow.
