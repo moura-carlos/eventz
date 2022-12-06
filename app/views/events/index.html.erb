@@ -22,3 +22,19 @@
     <%= link_to "Add New Event", new_event_path, class: 'button' %>
   </section>
 <% end %>
+
+
+<h1>Past Events</h1>
+<table>
+  <% @past_events.each do |event| %>
+    <tr>
+      <td>
+        <%= event.name %>
+      </td>
+
+      <td>
+        <%= day_and_time(event) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

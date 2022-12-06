@@ -5,6 +5,7 @@ class EventsController < ApplicationController
   def index
     # using Model Method - upcoming - that queries database for the upcoming events.
     @events = Event.upcoming
+    @past_events = Event.past
   end
 
   def show
