@@ -39,6 +39,15 @@
         <% end %>
       </ul>
     <% end %>
+    <%# Listing the categories of the current event %>
+    <% if @categories.present? %>
+      <h4>Categories</h4>
+      <ul>
+        <% @categories.each do |category| %>
+          <li><%= category.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
   </aside>
 
 </section>

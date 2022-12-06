@@ -10,7 +10,8 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @likers = @event.likers
-
+    # the event has many categories through categorizations
+    @categories = @event.categories
     # If there's a current user, then try to get their like.
     if current_user
       # checking if current_user has already liked @event
@@ -59,6 +60,6 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:name, :location, :price, :starts_at, :description, :capacity, :image_file_name)
+    params.require(:event).permit(:name, :location, :price, :starts_at, :description, :capacity, :image_file_name, category_ids: [])
   end
 end

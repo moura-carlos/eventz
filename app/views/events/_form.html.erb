@@ -22,5 +22,9 @@
   <%= f.label :starts_at %>
   <%= f.datetime_select :starts_at, {ampm: true}, {class: "datetime"} %>
 
+  <div class="checkboxes">
+    <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name)  %>
+  </div>
+
   <%= f.submit %>
 <% end %>
