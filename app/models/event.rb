@@ -25,13 +25,33 @@ class Event < ApplicationRecord
     with: /\w+\.(jpg|png)\z/i,
     message: 'must be a JPG or PNG image'
   }
-  def self.upcoming
-    # displaying only the upcoming events
-    # select all events which date is later than Time.now and
-    # orders it in ascending order (closest date - smaller - to farthest date - bigger)
-    # Event is implicit in this case because of self so we don't need to put Event.where(query)
-    where('starts_at > ?', Time.now).order('starts_at')
-  end
+
+  scope :past, -> { where('starts_at < ?', Time.now).order('starts_at') }
+  scope :upcoming, -> { where('starts_at > ?', Time.now).order('starts_at') }
+  scope :free, -> { where('price = 0.0').order(:name) }
+  # getting the most recent past 3 events, the ones that have just passed but are still recent.
+  # scope :recent, -> { past.limit(3) }
+  scope :recent, ->(max = 3) { past.limit(max) }
+  # Creatomg scope that gets free and upcoming at the same time by using existing scope.
+  # scope :free, -> { upcoming.where('price = 0.0').order(:name) }
+
+  # to get events that are upcoming and free just run -> Event.upcoming.free (or Event.free.upcoming)
+
+  # def self.upcoming
+  #   # displaying only the upcoming events
+  #   # select all events which date is later than Time.now and
+  #   # orders it in ascending order (closest date - smaller - to farthest date - bigger)
+  #   # Event is implicit in this case because of self so we don't need to put Event.where(query)
+  #   where('starts_at > ?', Time.now).order('starts_at')
+  # end
+
+  # def self.past
+  #   displaying only the past events
+  #   select all events which date is before Time.now and
+  #   orders it in ascending order (closest date - smaller - to farthest date - bigger)
+  #   Event is implicit in this case because of self so we don't need to put Event.where(query)
+  #   where('starts_at < ?', Time.now).order('starts_at')
+  # end
 
   def free?
     # same as => self.price == 0
