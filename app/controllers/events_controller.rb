@@ -10,6 +10,12 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @likers = @event.likers
+
+    # If there's a current user, then try to get their like.
+    if current_user
+      # checking if current_user has already liked @event
+      @like = current_user.likes.find_by(event_id: @event.id)
+    end
   end
 
   def edit
