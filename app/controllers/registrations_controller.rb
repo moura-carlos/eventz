@@ -40,6 +40,7 @@ class RegistrationsController < ApplicationController
   # This method makes the @event instance variable available to the actions index, new, and create.
   # before any of the actions in the list are run, this method is run.
   def set_event
-    @event = Event.find(params[:event_id])
+    # @event = Event.find(params[:event_id])
+    @event = Event.find_by!(slug: params[:event_id])
   end
 end
