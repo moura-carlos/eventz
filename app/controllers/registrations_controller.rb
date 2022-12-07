@@ -1,6 +1,6 @@
 class RegistrationsController < ApplicationController
   before_action :require_signin #, only: [:new, :create]
-  before_action :set_event, only: [:index, :new, :create]
+  before_action :set_event, only: [:index, :new, :create, :destroy]
 
   def index
     # @event = Event.find(params[:event_id])
@@ -29,6 +29,21 @@ class RegistrationsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+  # /events/:event_id/registrations/:id(.:format)	registrations#destroy
+    # @event.registrations.find(params[:id])
+    @registration = Registration.find(params[:id])
+    @user = @registration.user# User.find(@event.registrations.find(params[:id]).user)
+    if current_user?(@user)
+      # @event.registrations.find_by!(params[:user])
+      @registration.destroy
+      redirect_to @user, notice: "Your registration was successfully cancelled!"
+    else
+      redirect_to @event, notice: "You cannot cancel this registration!"
+    end
+
   end
 
   private

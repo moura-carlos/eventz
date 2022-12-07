@@ -22,6 +22,7 @@
         </div>
         <div class="date">
           <%= time_ago_in_words(registration.created_at) %> ago
+          <%= link_to "Unregister", event_registration_path(registration.event, registration), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "unregister" %>
         </div>
       </div>
         <%#= registration.event.name %>

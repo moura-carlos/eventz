@@ -403,6 +403,13 @@ section.admin {
     text-transform: uppercase;
   }
 }
+// Unregister
+a.unregister {
+  @extend .btn, .btn-secondary;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-left: 1rem;
+}
 
 section.event + section.admin {
   border-top: none;
