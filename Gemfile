@@ -18,6 +18,9 @@ group :production do
   gem "pg"
 end
 
+# AWS S3
+gem 'aws-sdk-s3', '~> 1.117', '>= 1.117.2'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
