@@ -25,6 +25,7 @@ class Event < ApplicationRecord
   validates :capacity, numericality:
                       { only_integer: true,
                         greater_than: 0 }
+  validate :acceptable_image
   # validates the image file name and extension using regular expression
   # images will now be uploaded using ActiveStorage
   # validates :image_file_name, format: {
@@ -86,5 +87,22 @@ class Event < ApplicationRecord
   private
   def set_slug
     self.slug = name.parameterize
+  end
+
+  def acceptable_image
+    # Do not run any validations if there is no image attached.
+    return unless main_image.attached?
+
+    # images cannot be over 1 megabyte.
+    unless main_image.blob.byte_size <= 1.megabyte
+      # take our errors collection and add a validation error for the attribute main_image
+      # then the error message is "is too big".
+      errors.add(:main_image, "is too big.")
+    end
+    # defining the acceptable file types/content type
+    acceptable_types = ["image/jpeg", "image/png"]
+    unless acceptable_types.include?(main_image.content_type)
+      errors.add(:main_image, "must be JPEG or PNG")
+    end
   end
 end
