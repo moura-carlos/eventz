@@ -1,4 +1,5 @@
 class Event < ApplicationRecord
+  before_save :set_slug
   # when an Event is destroyed, all its associated registrations are also destroyed.
   has_many :registrations, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -13,7 +14,8 @@ class Event < ApplicationRecord
   has_many :categorizations, dependent: :destroy
   has_many :categories, through: :categorizations
 
-  validates :name, :location, presence: true
+  validates :name, presence: true, uniqueness: true
+  validates :location, presence: true
   validates :description, length: { minimum: 25 } # this will check for both presence and size at same time
   # validates that price is a number (int, float...) and is >= 0
   validates :price, numericality: { greater_than_or_equal_to: 0 }
@@ -61,5 +63,24 @@ class Event < ApplicationRecord
   def sold_out?
     # (self.capacity - self.registrations.size).zero?
     (capacity - registrations.size).zero?
+  end
+
+  # overriding the default behavior of the to_param method
+  # which gets the id and uses it in the url shown to the user
+  # instead, we want to show the name of the event in the url.
+  # def to_param
+  #   name.parameterize
+  # end
+
+  def to_param
+    # returns the value of the slug attribute, which
+    # is set by the set_slug method
+    # before the object's info is saved to the database.
+    slug
+  end
+
+  private
+  def set_slug
+    self.slug = name.parameterize
   end
 end

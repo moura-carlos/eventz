@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :require_signin, except: [:index, :show]
   before_action :require_admin, except: [:index, :show]
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   def index
     # using Model Method - upcoming - that queries database for the upcoming events.
@@ -25,7 +26,11 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
+    # @event = Event.find(params[:id])
+    # although we are finding by the 'slug' column, the url/route still uses 'id'
+    # as the placeholder to store the value that identifies the event.
+    # That is why we keep params[:id] and do not change to params[:slug]
+    # @event = Event.find_by(slug: params[:id])
     @likers = @event.likers
     # the event has many categories through categorizations
     @categories = @event.categories
@@ -37,11 +42,11 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event = Event.find(params[:id])
+    # @event = Event.find(params[:id])
   end
 
   def update
-    @event = Event.find(params[:id])
+    # @event = Event.find(params[:id])
     if @event.update(event_params)
       # flash[:notice] = 'Event successfully updated!' => same as second part line 20
       # redirect_to @event = redict_to event_path(@event)
@@ -66,7 +71,7 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event = Event.find(params[:id])
+    # @event = Event.find(params[:id])
     if @event.destroy
       redirect_to events_url, status: :see_other
     else
@@ -78,5 +83,11 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:name, :location, :price, :starts_at, :description, :capacity, :image_file_name, category_ids: [])
+  end
+
+  def set_event
+    # finding an event by its slug value that is passed in the URL though the
+    # :id key/placeholder
+    @event = Event.find_by!(slug: params[:id])
   end
 end
