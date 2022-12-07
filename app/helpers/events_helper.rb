@@ -16,4 +16,12 @@ module EventsHelper
       event.starts_at.strftime("%B %d at %I:%M %P")
     end
   end
+
+  def main_image(event)
+    if event.main_image.attached?
+      image_tag event.main_image
+    else
+      image_tag "placeholder.png"
+    end
+  end
 end

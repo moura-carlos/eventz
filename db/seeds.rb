@@ -110,17 +110,18 @@ Event.create!([
 ])
 
 # ["id", "name", "email", "password_digest", "created_at", "updated_at"]
-image_file_names = ["bugsmash.png",
-  "coffee-code.png",
-  "drone-zone.png",
-  "hackathon.png",
-  "katacamp.png",
-  "lightning.png",
-  "logo.png",
-  "ninjas.png",
-  "placeholder.png",
-  "rails-user-group.png",
-  "ruby-user-group.png"]
+# image_file_names = ["bugsmash.png",
+#   "coffee-code.png",
+#   "drone-zone.png",
+#   "hackathon.png",
+#   "katacamp.png",
+#   "lightning.png",
+#   "logo.png",
+#   "ninjas.png",
+#   "placeholder.png",
+#   "rails-user-group.png",
+#   "ruby-user-group.png"]
+# image_file_names = ["placeholder.png"]
 10.times do
   Event.create!(
     name: Faker::Address.community,
@@ -128,8 +129,8 @@ image_file_names = ["bugsmash.png",
     price: rand(500),
     starts_at: Faker::Date.between(from: '2022-12-20', to: '2023-12-30'),
     description: "#{Faker::Quote.famous_last_words} \n #{Faker::TvShows::GameOfThrones.quote}",
-    capacity: rand(50),
-    image_file_name: image_file_names.sample(1)[0]
+    capacity: rand(50)
+    # image_file_name: image_file_names.sample(1)[0]
   )
 end
 event_ids = [6,7,8,10]

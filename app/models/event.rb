@@ -14,6 +14,9 @@ class Event < ApplicationRecord
   has_many :categorizations, dependent: :destroy
   has_many :categories, through: :categorizations
 
+  # Necessary for uploading files with ActiveStorage.
+  has_one_attached :main_image
+
   validates :name, presence: true, uniqueness: true
   validates :location, presence: true
   validates :description, length: { minimum: 25 } # this will check for both presence and size at same time
@@ -23,10 +26,11 @@ class Event < ApplicationRecord
                       { only_integer: true,
                         greater_than: 0 }
   # validates the image file name and extension using regular expression
-  validates :image_file_name, format: {
-    with: /\w+\.(jpg|png)\z/i,
-    message: 'must be a JPG or PNG image'
-  }
+  # images will now be uploaded using ActiveStorage
+  # validates :image_file_name, format: {
+  #   with: /\w+\.(jpg|png)\z/i,
+  #   message: 'must be a JPG or PNG image'
+  # }
 
   scope :past, -> { where('starts_at < ?', Time.now).order('starts_at') }
   scope :upcoming, -> { where('starts_at > ?', Time.now).order('starts_at') }
