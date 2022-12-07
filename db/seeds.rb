@@ -146,7 +146,7 @@ how_heard_options = [
   how_heard_option = how_heard_options.sample(1)[0]
   name = Faker::Name.name.downcase.split(" ").join("_")
   Registration.create!(
-    user_id: rand(1..10)
+    user_id: rand(1..10),
     how_heard: how_heard_option,
     event_id: event_id
   )
