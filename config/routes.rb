@@ -37,4 +37,6 @@ Rails.application.routes.draw do
 
   get "signup" => "users#new"
   get "signin" => "sessions#new"
+
+  get "events/filter/:filter" => "events#index", as: :filtered_events
 end
