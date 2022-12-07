@@ -5,6 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
+
+10.times do
+  name = Faker::Name.first_name
+  email = "#{name.downcase!}@example.com"
+  User.create!(
+    name: name,
+    email: email,
+    password: 'password'
+  )
+end
 
 Event.create!([
   {
@@ -98,8 +109,29 @@ Event.create!([
   }
 ])
 
-require 'faker'
-
+# ["id", "name", "email", "password_digest", "created_at", "updated_at"]
+image_file_names = ["bugsmash.png",
+  "coffee-code.png",
+  "drone-zone.png",
+  "hackathon.png",
+  "katacamp.png",
+  "lightning.png",
+  "logo.png",
+  "ninjas.png",
+  "placeholder.png",
+  "rails-user-group.png",
+  "ruby-user-group.png"]
+10.times do
+  Event.create!(
+    name: Faker::Address.community,
+    location: Faker::Address.state,
+    price: rand(500),
+    starts_at: Faker::Date.between(from: '2022-12-20', to: '2023-12-30'),
+    description: "#{Faker::Quote.famous_last_words} \n #{Faker::TvShows::GameOfThrones.quote}",
+    capacity: rand(50),
+    image_file_name: image_file_names.sample(1)[0]
+  )
+end
 event_ids = [6,7,8,10]
 how_heard_options = [
   'Newsletter',
@@ -114,30 +146,9 @@ how_heard_options = [
   how_heard_option = how_heard_options.sample(1)[0]
   name = Faker::Name.name.downcase.split(" ").join("_")
   Registration.create!(
-    name: Faker::Name.name,
-    email: name+"@"+"randmail.com",
+    user_id: rand(1..10)
     how_heard: how_heard_option,
     event_id: event_id
-  )
-end
-["id", "name", "email", "password_digest", "created_at", "updated_at"]
-10.times do
-  name = Faker::Name.first_name
-  email = "#{name.downcase!}@example.com"
-  User.create!(
-    name: name,
-    email: email,
-    password: 'password'
-  )
-end
-10.times do
-  Event.create!(
-    name: Faker::Address.community,
-    location: Faker::Address.state,
-    price: rand(500),
-    starts_at: Faker::Date.between(from: '2022-12-20', to: '2023-12-30'),
-    description: "#{Faker::Quote.famous_last_words} \n #{Faker::TvShows::GameOfThrones.quote}",
-    capacity: rand(50)
   )
 end
 10.times do
