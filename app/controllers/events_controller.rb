@@ -4,8 +4,24 @@ class EventsController < ApplicationController
 
   def index
     # using Model Method - upcoming - that queries database for the upcoming events.
-    @events = Event.upcoming
-    @past_events = Event.past
+    # The following code makes use of the following url path structure -> .../events?filter=free
+    # Where 'free' is what changes ['past' 'free' 'recent'] based on which events we want to see.
+    case params[:filter]
+    when 'past'
+      @events = Event.past
+    when 'free'
+      @events = Event.free
+    when 'recent'
+      @events = Event.recent
+    else
+      @events = Event.upcoming
+    end
+
+    # Another way is getting the following url structure -> events/filter/free
+    # get "events/filter/:filter" => "events#index"
+    # Where 'free' is what changes ['past' 'free' 'recent'] based on which events we want to see.
+    # We can also make use of the code above, what changes is the url's look
+
   end
 
   def show
