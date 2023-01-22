@@ -9,6 +9,7 @@
 * [Modeling](#modeling)
 * [Status](#status)
 * [Testing the deployed application](#testing-the-deployed-application)
+* [On production](#on-production)
 ***
 ## General info
 ### Eventz
@@ -127,3 +128,8 @@ amazon:
 * Login with the example info as an admin user:
     > Email: carlos@example.com\
     > Password: password
+## On production
+Make sure you set your Rails Master Key value for Heroku so that it knows how to read your encrypted API keys.
+* Your master key value can be found in ```app/config/master.key```
+	+ Once you copy that value, run the following command replacing ```VALUE_INSIDE_OF_YOUR_MASTER_KEY_FILE``` with the value you copied from ```master.key```
+		+ ```$ heroku config:set RAILS_MASTER_KEY=VALUE_INSIDE_OF_YOUR_MASTER_KEY_FILE```
