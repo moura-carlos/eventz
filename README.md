@@ -22,20 +22,17 @@ https://user-images.githubusercontent.com/97359453/213896723-b64d7ca5-0993-4cde-
 ---
 ## Technologies
 The project is created with/makes use of:
-* Bundler version 2.3.5
+* Bundler
 * Git
-* Ruby on Rails version 6.1.6
-* Ruby version 3.0.3
-* JavaScript - AJAX
-* Tailwind CSS version 1.9.6
-* Stripe Payments API
+* Ruby on Rails
+* Ruby
 * Heroku - Deployment
 * PostgreSQL 12 (Production Environment) & Sqlite3 (Development Environment)
 ---
 ## Setup
 To run this project - locally - on your machine:
 ```
-$ cd your-folder/webbit
+$ cd your-folder/eventz
 $ bundle install
 $ yarn install
 $ rails db:create
